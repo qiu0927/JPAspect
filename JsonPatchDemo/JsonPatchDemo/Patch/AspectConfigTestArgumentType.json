@@ -1,0 +1,265 @@
+{
+    "AspectDefineClass" : ["UIColor"],
+    "Aspects": [
+        {
+            "className": "JPTestA",
+            "selName": "setName:",
+            "hookType": 1,
+            "argumentNames": ["name"],
+            "customMessages" : [
+                {
+                    "message" : "name=1:jp",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setMyClass:",
+            "hookType": 1,
+            "argumentNames": ["myClass"],
+            "customMessages" : [
+                {
+                    "message" : "myClass=2:JPTestB",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setIsTrue:",
+            "hookType": 1,
+            "argumentNames": ["isTrue"],
+            "customMessages" : [
+                {
+                    "message" : "isTrue=3:0",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setIsTrue:",
+            "hookType": 1,
+            "argumentNames": ["isTrue"],
+            "customMessages" : [
+                {
+                    "message" : "isTrue=3:0",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setInteger:",
+            "hookType": 1,
+            "argumentNames": ["integer"],
+            "customMessages" : [
+                {
+                    "message" : "integer=4:-22",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setUInteger:",
+            "hookType": 1,
+            "argumentNames": ["uInteger"],
+            "customMessages" : [
+                {
+                    "message" : "uInteger=5:22",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setMyShort:",
+            "hookType": 1,
+            "argumentNames": ["myShort"],
+            "customMessages" : [
+                {
+                    "message" : "myShort=6:-22",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setMyUnsignedShort:",
+            "hookType": 1,
+            "argumentNames": ["myUnsignedShort"],
+            "customMessages" : [
+                {
+                    "message" : "myUnsignedShort=7:22",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setMyLongLong:",
+            "hookType": 1,
+            "argumentNames": ["myLongLong"],
+            "customMessages" : [
+                {
+                    "message" : "myLongLong=8:22",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setMyUnsignedLongLong:",
+            "hookType": 1,
+            "argumentNames": ["myUnsignedLongLong"],
+            "customMessages" : [
+                {
+                    "message" : "myUnsignedLongLong=9:22",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setMyFloat:",
+            "hookType": 1,
+            "argumentNames": ["myFloat"],
+            "customMessages" : [
+                {
+                    "message" : "myFloat=10:22.22",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setMyCGFloat:",
+            "hookType": 1,
+            "argumentNames": ["myCGFloat"],
+            "customMessages" : [
+                {
+                    "message" : "myCGFloat=11:-22.22",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setMyInt:",
+            "hookType": 1,
+            "argumentNames": ["myInt"],
+            "customMessages" : [
+                {
+                    "message" : "myInt=12:-22",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setMyUnsignedInt:",
+            "hookType": 1,
+            "argumentNames": ["myUnsignedInt"],
+            "customMessages" : [
+                {
+                    "message" : "myUnsignedInt=13:22",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setSelector:",
+            "hookType": 1,
+            "argumentNames": ["selector"],
+            "customMessages" : [
+                {
+                    "message" : "selector=14:selB",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setSize:",
+            "hookType": 1,
+            "argumentNames": ["size"],
+            "customMessages" : [
+                {
+                    "message" : "size=15:1,1.1",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setPoint:",
+            "hookType": 1,
+            "argumentNames": ["point"],
+            "customMessages" : [
+                {
+                    "message" : "point=16:1,1.1",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setRect:",
+            "hookType": 1,
+            "argumentNames": ["rect"],
+            "customMessages" : [
+                {
+                    "message" : "rect=17:0,0,1,1.1",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setEdgeInsets:",
+            "hookType": 1,
+            "argumentNames": ["edgeInsets"],
+            "customMessages" : [
+                {
+                    "message" : "edgeInsets=18:0,0,1,1.1",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestA",
+            "selName": "setRange:",
+            "hookType": 1,
+            "argumentNames": ["range"],
+            "customMessages" : [
+                {
+                    "message" : "range=19:1,1.1",
+                    "messageType" : 2
+                }
+            ]
+        }
+    ]
+}
+

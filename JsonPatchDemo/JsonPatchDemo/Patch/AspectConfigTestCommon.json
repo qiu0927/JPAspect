@@ -1,0 +1,225 @@
+{
+    "AspectDefineClass" : ["UIColor"],
+    "Aspects": [
+        {
+            "className": "JPTestC",
+            "selName": "willInitTestObject",
+            "hookType": 1,
+            "customMessages" : [
+                {
+                    "message" : "super.willInitTestObject"
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestC",
+            "selName": "willInitClassTestObject",
+            "isClassMethod" : 1,
+            "hookType": 2,
+            "customMessages" : [
+                {
+                    "message" : "super.willInitClassTestObject"
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestC",
+            "selName": "contentWithCustomString:",
+            "hookType": 3,
+            "argumentNames": ["string"],
+            "customMessages" : [
+                {
+                    "message" : "super.contentWithCustomString:",
+                    "localInstanceKey" : "content",
+                    "arguments" : {
+                        "contentWithCustomString:" : [{
+                            "index" : 0,
+                            "value" : "string",
+                            "type"  : 1
+                        }]
+                    }
+                },
+                
+                {
+                    "message" : "return=1:content",
+                    "messageType" : 1
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestC",
+            "selName": "multiArgumentMethodTest",
+            "hookType": 1,
+            "customMessages" : [
+                {
+                    "message" : "self.multiArgumentMethod:index:flag:",
+                    "localInstanceKey" : "content",
+                    "arguments" : {
+                        "multiArgumentMethod:index:flag:" : [{
+                            "index" : 0,
+                            "value" : "JPTestC",
+                            "type"  : 1
+                        },
+                        {
+                            "index" : 1,
+                            "value" : "1",
+                            "type"  : 5
+                        },
+                        {
+                            "index" : 2,
+                            "value" : "0",
+                            "type"  : 3
+                        }]
+                    }
+                },
+                
+                {
+                    "message" : "return=1:content",
+                    "messageType" : 1
+                }
+            ]
+        },
+        
+        {
+            "className": "__NSCFNumber",
+            "selName": "isEqualToNumber:",
+            "hookType": 1,
+            "argumentNames": ["number"],
+            "customMessages" : [
+                
+                {
+                    "message" : "return=3:1",
+                    "messageType" : 1,
+                    "invokeCondition": {
+                        "condition" : "number==nil",
+                        "operator" : "=="
+                    }
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestC",
+            "selName": "modifyGetter",
+            "hookType": 1,
+            "customMessages" : [
+                {
+                    "message" : "self.valueForKey:",
+                    "arguments" : {
+                        "valueForKey:" : [{
+                            "index" : 0,
+                            "value" : "_modifyGetter",
+                            "type"  : 1
+                        }]
+                    },
+                    "localInstanceKey" : "modifyGetterValue"
+                },
+                
+                {
+                    "message" : "self.setValue:forKey:",
+                    "arguments" : {
+                        "setValue:forKey:" : [{
+                            "index" : 0,
+                            "value" : "Hello World!",
+                            "type"  : 1
+                        },
+                        {
+                            "index" : 1,
+                            "value" : "_modifyGetter",
+                            "type"  : 1
+                        }]
+                    },
+                    "invokeCondition": {
+                        "condition" : "modifyGetterValue==nil",
+                        "operator" : "=="
+                    }
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestC",
+            "selName": "insteadGetter",
+            "hookType": 3,
+            "customMessages" : [
+                {
+                    "message" : "self.valueForKey:",
+                    "arguments" : {
+                        "valueForKey:" : [{
+                            "index" : 0,
+                            "value" : "_insteadGetter",
+                            "type"  : 1
+                        }]
+                    },
+                    "localInstanceKey" : "insteadGetterValue"
+                },
+                
+                {
+                    "message" : "self.setValue:forKey:",
+                    "arguments" : {
+                        "setValue:forKey:" : [{
+                            "index" : 0,
+                            "value" : "Hello World!!!",
+                            "type"  : 1
+                        },
+                        {
+                            "index" : 1,
+                            "value" : "_insteadGetter",
+                            "type"  : 1
+                        }]
+                    },
+                    "invokeCondition": {
+                        "condition" : "insteadGetterValue==nil",
+                        "operator" : "=="
+                    }
+                },
+                
+                {
+                    "message" : "self.valueForKey:",
+                    "arguments" : {
+                        "valueForKey:" : [{
+                            "index" : 0,
+                            "value" : "_insteadGetter",
+                            "type"  : 1
+                        }]
+                    },
+                    "localInstanceKey" : "insteadGetterValue"
+                },
+                
+                {
+                    "message" : "return=1:insteadGetterValue",
+                    "messageType" : 1
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestC",
+            "selName": "modifySelfArgument:",
+            "argumentNames": ["testC"],
+            "hookType": 1,
+            "customMessages" : [
+                {
+                    "message" : "testC=1:self",
+                    "messageType" : 2
+                }
+            ]
+        },
+        
+        {
+            "className": "JPTestC",
+            "selName": "modifyArgumentToNil:",
+            "argumentNames": ["string"],
+            "hookType": 1,
+            "customMessages" : [
+                {
+                    "message" : "string=1:nil",
+                    "messageType" : 2
+                }
+            ]
+        }
+    ]
+}
