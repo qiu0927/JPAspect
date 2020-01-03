@@ -1,0 +1,4 @@
+language: objective-c
+script:
+- xcodebuild test -project JsonPatchDemo/JsonPatchDemo.xcodeproj -scheme JsonPatchDemo -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'name=iPhone X,OS=12.2'
+- xcodebuild test -project JsonPatchDemo/JsonPatchDemo.xcodeproj -scheme JsonPatchDemo -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'name=iPhone 5s,OS=8.3'
