@@ -90,4 +90,16 @@
     XCTAssertNil(content);
 }
 
+- (void)testAndOperator
+{
+     NSString *content = [self.testC andOperatorTest];
+    XCTAssertEqualObjects(content, @"&&");
+}
+
+- (void)testOrOperator
+{
+     NSString *content = [self.testC orOperatorTest];
+    XCTAssertEqualObjects(content, @"||");
+}
+
 @end
