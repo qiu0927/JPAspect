@@ -2,6 +2,7 @@
 ![CocoaPods Version](https://img.shields.io/cocoapods/v/JPAspect.svg?style=flat)
 [![License](https://img.shields.io/github/license/zhiyongzou/JPAspect.svg?style=flat)](https://github.com/zhiyongzou/JPAspect/blob/master/LICENSE)
 [![Build Status](https://travis-ci.com/zhiyongzou/JPAspect.svg?branch=master)](https://travis-ci.com/zhiyongzou/JPAspect)
+[![HitCount](http://hits.dwyl.io/zhiyongzou/JPAspect.svg)](http://hits.dwyl.io/zhiyongzou/JPAspect)
 
 JPAspect 一款轻量级、无侵入和无审核风险的 iOS 热修复框架。JPAspect 通过下发指定规则的 JSON 即可轻松实现线上 Bug 修复。 
 
