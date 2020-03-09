@@ -47,14 +47,12 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
 + (void)removeHookWithClassName:(NSString *)className selName:(NSString *)selName isClassMethod:(BOOL)isClassMethod
 {
     if (className == nil) {
-        JPAspectLog(@"[JPAspect] className is nil");
-        NSAssert(NO, @"");
+        NSAssert(NO, @"[JPAspect] className is nil");
         return;
     }
     
     if (selName == nil) {
-        JPAspectLog(@"[JPAspect] selName is nil");
-        NSAssert(NO, @"");
+        NSAssert(NO, @"[JPAspect] selName is nil");
         return;
     }
     
@@ -89,22 +87,19 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
     }
     
     if (JPAspectHookUnknown == aspectModel.hookType) {
-        JPAspectLog(@"[JPAspect] hook type is unknown");
-        NSAssert(NO, @"");
+        NSAssert(NO, @"[JPAspect] hook type is unknown");
         return;
     }
     
     Class targetCls = NSClassFromString(aspectModel.className);
     if (targetCls == nil) {
-        JPAspectLog(@"[JPAspect] Target class:[%@] is nil", aspectModel.className);
-        NSAssert(NO, @"");
+        NSAssert(NO, @"[JPAspect] Target class:[%@] is nil", aspectModel.className);
         return;
     }
     
     SEL targetSel = NSSelectorFromString(aspectModel.selName);
     if (targetSel == nil) {
-        JPAspectLog(@"[JPAspect] Target selector:[%@] is nil", aspectModel.selName);
-        NSAssert(NO, @"");
+        NSAssert(NO, @"[JPAspect] Target selector:[%@] is nil", aspectModel.selName);
         return;
     }
     
@@ -120,8 +115,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
     } error:&aspectError];
     
     if (aspectError) {
-        JPAspectLog(@"[JPAspect] %@ %@ Hook error:%@", aspectModel.className, aspectModel.selName, aspectError);
-        NSAssert(NO, @"");
+        NSAssert(NO, @"[JPAspect] %@ %@ Hook error:%@", aspectModel.className, aspectModel.selName, aspectError);
     } else {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
@@ -147,14 +141,12 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
     NSUInteger argumentIndex = aspectArgument.index + JPAspectMethodDefaultArgumentsCount;
     
     if (aspectArgument.index >= invocation.methodSignature.numberOfArguments) {
-        JPAspectLog(@"%@", [NSString stringWithFormat:@"[JPAspect] Argument index(%zd) is out of bounds [0, %zd)", aspectArgument.index, invocation.methodSignature.numberOfArguments]);
-        NSAssert(NO, @"");
+        NSAssert(NO, @"%@", [NSString stringWithFormat:@"[JPAspect] Argument index(%@) is out of bounds [0, %@)", @(aspectArgument.index), @(invocation.methodSignature.numberOfArguments)]);
         return;
     }
     
     if (aspectArgument.type == JPArgumentTypeUnknown) {
-        JPAspectLog(@"%@", @"[JPAspect] Argument type is JPArgumentTypeUnknown");
-        NSAssert(NO, @"");
+        NSAssert(NO, @"%@", @"[JPAspect] Argument type is JPArgumentTypeUnknown");
         return;
     }
     
@@ -254,7 +246,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
         [invocation setArgument:&value atIndex:argumentIndex];
         
     } else {
-        JPAspectLog(@"%@", [NSString stringWithFormat:@"[JPAspect] Argument type:[%zd] is unknown", aspectArgument.type]);
+        NSAssert(NO, @"%@", [NSString stringWithFormat:@"[JPAspect] Argument type:[%@] is unknown", @(aspectArgument.type)]);
     }
 }
 
@@ -263,8 +255,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
     NSUInteger argumentIndex = index + JPAspectMethodDefaultArgumentsCount;
     
     if (argumentIndex >= invocation.methodSignature.numberOfArguments) {
-        JPAspectLog(@"%@", [NSString stringWithFormat:@"[JPAspect] Argument index(%zd) is out of bounds [0, %zd)", index, invocation.methodSignature.numberOfArguments]);
-        NSAssert(NO, @"");
+        NSAssert(NO, @"%@", [NSString stringWithFormat:@"[JPAspect] Argument index(%@) is out of bounds [0, %@)", @(index), @(invocation.methodSignature.numberOfArguments)]);
         return nil;
     }
     
@@ -436,9 +427,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
     }
     
     if (!signature) {
-        NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] Target:[%@] method signature must not be nil. selName:%@", target, selName];
-        JPAspectLog(@"%@", errorMsg);
-        NSAssert(NO, errorMsg);
+        NSAssert(NO, @"[JPAspect] Target:[%@] method signature must not be nil. selName:%@", target, selName);
         return instance;
     }
     
@@ -671,7 +660,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
         instance = @([contentString boolValue]);
         
     } else {
-        JPAspectLog(@"%@", [NSString stringWithFormat:@"[JPAspect] Argument type:[%zd] is unsupport", type]);
+        NSAssert(NO, @"%@", [NSString stringWithFormat:@"[JPAspect] Argument type:[%@] is unsupport", @(type)]);
     }
     
     return instance;
@@ -734,7 +723,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
                         [localVariables setObject:localInstance forKey:message.localInstanceKey];
                         JPAspectLog(@"[JPAspect] Message:[%@] invoke success", message.message);
                     } else {
-                        JPAspectLog(@"[JPAspect] Message:[%@] return value is nil", message.message);
+                        NSAssert(NO, @"[JPAspect] Message:[%@] return value is nil", message.message);
                     }
                 } else {
                     JPAspectLog(@"[JPAspect] Message:[%@] invoke success", message.message);
@@ -830,7 +819,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
                 
             }
             aspectInfo.originalInvocation.target = nil;
-            JPAspectLog(@"[JPAspect] [%@ %@] return type:[%zd] value: %@", aspectModel.className, aspectModel.selName, returnInstance.type, returnInstance.value);
+            JPAspectLog(@"[JPAspect] [%@ %@] return type:[%@] value: %@", aspectModel.className, aspectModel.selName, @(returnInstance.type), returnInstance.value);
         }
     }
 }
@@ -847,18 +836,14 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
         NSString *operator = [message.invokeCondition objectForKey:@"operator"];
         
         if (operator == nil) {
-            NSString *errorMsg = @"[JPAspect] Invoke condition operator must not be nil";
-            JPAspectLog(@"%@", errorMsg);
-            NSAssert(NO, errorMsg);
+            NSAssert(NO, @"[JPAspect] Invoke condition operator must not be nil");
             break;
         }
         
         NSArray *conditionComponents = [message.invokeCondition[@"condition"] componentsSeparatedByString:operator];
         
         if (conditionComponents.count != 2) {
-            NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] Condition:[%@] components which separated by [%@] must equal to 2", message.invokeCondition[@"condition"], operator];
-            JPAspectLog(@"%@", errorMsg);
-            NSAssert(NO, errorMsg);
+            NSAssert(NO, @"[JPAspect] Condition:[%@] components which separated by [%@] must equal to 2", message.invokeCondition[@"condition"], operator);
             break;
         }
         
@@ -1007,9 +992,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
                 }
             }
         } else {
-            NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] Message:[%@] operator:[%@] type is unknown", message.message, operator];
-            JPAspectLog(@"%@", errorMsg);
-            NSAssert(NO, errorMsg);
+            NSAssert(NO, @"[JPAspect] Message:[%@] operator:[%@] type is unknown", message.message, operator);
         }
         
     } while (0);
@@ -1025,17 +1008,13 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
     NSArray *msgComponents = [message.message componentsSeparatedByString:@"="];
     
     if (msgComponents.count != 2) {
-        NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] Message:[%@] components which separated by [=] must equal to 2", message.message];
-        JPAspectLog(@"%@", errorMsg);
-        NSAssert(NO, errorMsg);
+        NSAssert(NO, @"[JPAspect] Message:[%@] components which separated by [=] must equal to 2", message.message);
         return;
     }
     
     NSArray *instanceValues = [msgComponents.lastObject componentsSeparatedByString:@":"];
     if (instanceValues.count != 2) {
-        NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] InstanceValue:[%@] components which separated by [:] must equal to 2", msgComponents.lastObject];
-        JPAspectLog(@"%@", errorMsg);
-        NSAssert(NO, errorMsg);
+        NSAssert(NO, @"[JPAspect] InstanceValue:[%@] components which separated by [:] must equal to 2", msgComponents.lastObject);
         return;
     }
     
@@ -1074,9 +1053,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
         NSString *returnValue = [message.message substringFromIndex:7];
         NSArray *returnValues = [returnValue componentsSeparatedByString:@":"];
         if (returnValues.count != 2) {
-            NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] ReturnValue:[%@] components which separated by [:] must equal to 2", returnValue];
-            JPAspectLog(@"%@", errorMsg);
-            NSAssert(NO, errorMsg);
+            NSAssert(NO, @"[JPAspect] ReturnValue:[%@] components which separated by [:] must equal to 2", returnValue);
             return;
         }
         
@@ -1090,9 +1067,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
         instance.value = [JPAspect aspectInstanceValueWithType:instance.type contentString:returnValues.lastObject localVariables:localVariables aspectInfo:aspectInfo];
         
     } else {
-        NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] Return Message:[%@] format is error", message.message];
-        JPAspectLog(@"%@", errorMsg);
-        NSAssert(NO, errorMsg);
+        NSAssert(NO, @"[JPAspect] Return Message:[%@] format is error", message.message);
     }
 }
 
@@ -1104,18 +1079,14 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
     JPAspectInstance *localInstance = nil;
     
     if (message.message.length == 0) {
-        NSString *errorMsg = @"[JPAspect] Message is nil";
-        JPAspectLog(@"%@", errorMsg);
-        NSAssert(NO, errorMsg);
+        NSAssert(NO, @"[JPAspect] Message is nil");
         return localInstance;
     }
     
     NSArray<NSString *> *messageComponents = [message.message componentsSeparatedByString:@"."];
     
     if (messageComponents.count <= 1) {
-        NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] Message:[%@] is invalid", message.message];
-        JPAspectLog(@"%@", errorMsg);
-        NSAssert(NO, errorMsg);
+        NSAssert(NO, @"[JPAspect] Message:[%@] is invalid", message.message);
         return localInstance;
     }
     
@@ -1133,9 +1104,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
                 
                 currentTarget = NSClassFromString(component);
                 if (currentTarget == nil) {
-                    NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] Message class:[%@] is not exist", component];
-                    JPAspectLog(@"%@", errorMsg);
-                    NSAssert(NO, errorMsg);
+                    NSAssert(NO, @"[JPAspect] Message class:[%@] is not exist", component);
                     break;
                 }
                 
@@ -1146,9 +1115,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
             } else if ([component isEqualToString:@"super"]) {
                 
                 if (messageComponents.count > 2) {
-                    NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] Message:[%@] super can not contain multiple message invoke", message.message];
-                    JPAspectLog(@"%@", errorMsg);
-                    NSAssert(NO, errorMsg);
+                    NSAssert(NO, @"[JPAspect] Message:[%@] super can not contain multiple message invoke", message.message);
                     break;
                 }
                 
@@ -1168,8 +1135,8 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
                     }
                     Method superMethod = class_getInstanceMethod(superCls, superSel);
                     IMP superIMP = method_getImplementation(superMethod);
-                    BOOL addMethodSuccess = class_addMethod(targetCls, superAliasSel, superIMP, method_getTypeEncoding(superMethod));
-                    JPAspectLog(@"Add Super Method Success: %d", addMethodSuccess);
+                    __unused BOOL addMethodSuccess = class_addMethod(targetCls, superAliasSel, superIMP, method_getTypeEncoding(superMethod));
+                    JPAspectLog(@"[JPAspect] Add Super Method Success: %d", addMethodSuccess);
                 }
                 currentTarget = aspectInfo.instance;
                 isCallSuper = YES;
@@ -1184,25 +1151,19 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
                 JPAspectArgument *argument = [self getArgumentWithInvocation:aspectInfo.originalInvocation atIndex:idxOfParamter];
                 
                 if (argument == nil || argument.type == JPArgumentTypeUnknown) {
-                    NSString *errorMsg = @"[JPAspect] Message parameter is nil";
-                    JPAspectLog(@"%@", errorMsg);
-                    NSAssert(NO, errorMsg);
+                    NSAssert(NO, @"[JPAspect] Message parameter is nil");
                     break;
                 }
                 
                 if (argument.type != JPArgumentTypeObject) {
-                    NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] Message parameter:[%zd] type must be object", argument.type];
-                    JPAspectLog(@"%@", errorMsg);
-                    NSAssert(NO, errorMsg);
+                    NSAssert(NO, @"[JPAspect] Message parameter:[%@] type must be object", @(argument.type));
                     break;
                 }
                 currentTarget = argument.value;
                 
             } else {
                 
-                NSString *errorMsg = [NSString stringWithFormat:@"[JPAspect] JPAspectDefineClassList can not find current class:[%@]", component];
-                JPAspectLog(@"%@", errorMsg);
-                NSAssert(NO, errorMsg);
+                NSAssert(NO, @"[JPAspect] JPAspectDefineClassList can not find current class:[%@]", component);
                 break;
             }
         } else {
@@ -1215,7 +1176,7 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
                     [cureentSelArguments enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull parameter, NSUInteger idx, BOOL * _Nonnull stop) {
 #ifdef DEBUG
                         if (![parameter[@"value"] isKindOfClass:[NSString class]]) {
-                            NSAssert(NO, @"Value must be NSString");
+                            NSAssert(NO, @"[JPAspect] Value must be NSString");
                         }
 #endif
                         JPAspectArgument *argument = nil;
