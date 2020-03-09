@@ -817,6 +817,13 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
                 NSRange expectValue = [(NSValue *)returnInstance.value rangeValue];
                 [aspectInfo.originalInvocation setReturnValue:&expectValue];
                 
+            } else if (returnInstance.type == JPArgumentTypeFloat) {
+                           
+                aspectInfo.originalInvocation.selector = @selector(returnFloat);
+                [aspectInfo.originalInvocation invoke];
+                float expectValue = [(NSNumber *)returnInstance.value floatValue];
+                [aspectInfo.originalInvocation setReturnValue:&expectValue];
+               
             }
             aspectInfo.originalInvocation.target = nil;
             JPAspectLog(@"[JPAspect] [%@ %@] return type:[%@] value: %@", aspectModel.className, aspectModel.selName, @(returnInstance.type), returnInstance.value);
