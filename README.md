@@ -4,29 +4,24 @@
 [![Build Status](https://travis-ci.com/zhiyongzou/JPAspect.svg?branch=master)](https://travis-ci.com/zhiyongzou/JPAspect)
 [![HitCount](http://hits.dwyl.io/zhiyongzou/JPAspect.svg)](http://hits.dwyl.io/zhiyongzou/JPAspect)
 
-JPAspect 一款轻量级、无侵入和无审核风险的 iOS 热修复框架。JPAspect 通过下发指定规则的 JSON 即可轻松实现线上 Bug 修复。 
+JPAspect 一款基于 JSON 的 iOS 热修复框架。
 
-## 功能
-* 方法替换为空实现
-* 方法参数修改
-* 方法返回值修改
-* 方法调用前后插入自定义代码
-	* **支持任意 OC 方法调用**
-	* 支持赋值语句
-	* 支持 if 语句：**==、!=、>、>=、<、<=、||、&&**
-	* 支持 super 调用
-	* 支持自定义局部变量
-	* 支持 return 语句
+你可以用 JPAspect 来更改目标方法的参数值、返回值和在目标方法调用前后插入自定义代码。
 
-#### 注意
-* JPAspect 不支持 block、struct、enum、循环语句和 C/C++ 函数
-* JPAspect 主要在对目标方法的基础上进行修改，从而实现 bug 修复
-* JPAspect 在方法重写和自定义调用存在一定的局限性。但是用来修复常见 bug 已经足够
+你还可以用 JPAspect 来重写简单的目标方法，但是由于 JPAspect 不支持 Block、Struct、Enum、循环语句和 C/C++ 函数，所以在方法重写上存在一定的局限性，但是用来修复 Bug 已经足够。
+
+目前 JPAspect 支持的语法如下：
+
+	* 任意 OC 方法调用
+	* super 调用
+	* 自定义局部变量
+	* 赋值语句
+	* if 语句：==、!=、>、>=、<、<=、||、&&
+	* return 语句
 
 ## 示例
-
 ### 数组越界异常
-调用 `[self outOfBoundsException:index`] 时，由于传入 `index >= self.testList.count` ，导致数组越界异常。
+调用 `[self outOfBoundsException:index`] 时，如果传入 `index >= self.testList.count` ，那么就会发生数组越界异常。
 
 ```objc
 @implementation ViewController
@@ -45,12 +40,11 @@ JPAspect 一款轻量级、无侵入和无审核风险的 iOS 热修复框架。
 ```
 
 ### JSON 脚本
-示例方法存在数组越界崩溃，通过分析，只需增加越界判断保护即可（示例中的注释代码）。JSON 脚本修复：只需要在 `outOfBoundsException:` 调用前增加数组越界保护逻辑即可，具体修复脚本如下所示：
+通过分析，需在`outOfBoundsException `调用前增加越界判断保护（示例中的注释代码）来防止崩溃。具体 JSON 修复脚本如下所示：（具体代码可参考:**[Demo](https://github.com/zhiyongzou/JPAspect/tree/master/JsonPatchDemo)**）
 
 ```objc
 // 该脚本等于 fix code
 {
-    "AspectDefineClass" : [],
     "Aspects": [
         {
             "className": "ViewController",
@@ -86,9 +80,8 @@ pod 'JPAspect'
 
 ## 使用
 
-### 示例一
 1. `#import "JPAspect+PatchLoad.h"`
-2. 获取本地 JSON 修复配置
+2. 获取后台下载的 JSON 修复配置
 3. 调用 `+ (void)loadJsonPatchWithPath:(NSString *)filePath`
 
 ```objc
@@ -105,34 +98,12 @@ pod 'JPAspect'
 @end
 ```
 
-### 示例二
-1. `#import "JPAspect.h"` 
-2. 获取本地 JSON 修复配置
-3. 获取 `AspectDefineClass` 设置使用到的 Class  `+ (void)setupAspectDefineClass:(NSArray<NSString *> *)classList`
-4. 获取 `Aspects` 然后调用 `+ (void)hookSelectorWithAspectDictionary:(NSDictionary *)aspectDictionary`
-
-```objc
-@implementation AppDelegate
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    NSDictionary *patchDic = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:@".../xxx.json"] options:NSJSONReadingMutableContainers error:NULL];
-    
-    [JPAspect setupAspectDefineClass:[patchDic objectForKey:@"AspectDefineClass"]];
-
-    NSArray<NSDictionary *> *patchs = [patchDic objectForKey:@"Aspects"];
-    [patchs enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull patch, NSUInteger idx, BOOL * _Nonnull stop) {
-        [JPAspect hookSelectorWithAspectDictionary:patch];
-    }];
-    
-    return YES;
-}
-
-@end
-```
 ## 其他
-* **`JPAspect`** 详细使用文档： [Wiki](https://github.com/zhiyongzou/JPAspect/wiki)
-* 单元测试用例：[JsonPatchDemoTests](https://github.com/zhiyongzou/JPAspect/tree/master/JsonPatchDemo/JsonPatchDemoTests) 
-* 如果在使用`JPAspect`时遇到问题，请发起`issue`或联系[本人](mailto:scauzouzhiyong@163.com)
+* JPAspect 详细使用文档： [Wiki](https://github.com/zhiyongzou/JPAspect/wiki)
+* JPAspect 单元测试用例：[JsonPatchDemoTests](https://github.com/zhiyongzou/JPAspect/tree/master/JsonPatchDemo/JsonPatchDemoTests) 
+* 如果在使用 JPAspect 时遇到问题，请发起**`issue`**或联系[本人](mailto:scauzouzhiyong@163.com)
+* QQ 交流群：
+
+![](https://github.com/zhiyongzou/JPAspect/imgs/qq_group.png)
 
 
