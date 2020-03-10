@@ -101,7 +101,7 @@ pod 'JPAspect'
 ## 其他
 * JPAspect 详细使用文档： [Wiki](https://github.com/zhiyongzou/JPAspect/wiki)
 * JPAspect 单元测试用例：[JsonPatchDemoTests](https://github.com/zhiyongzou/JPAspect/tree/master/JsonPatchDemo/JsonPatchDemoTests) 
-* 如果在使用 JPAspect 时遇到问题，请发起**`issue`**或联系[本人](mailto:scauzouzhiyong@163.com)
+* 如果在使用 JPAspect 时遇到问题，请发起 **`issue`** 或联系[本人](mailto:scauzouzhiyong@163.com)
 * QQ 交流群：
 
 ![](https://github.com/zhiyongzou/JPAspect/blob/master/imgs/qq_group.png)
