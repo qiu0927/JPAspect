@@ -104,6 +104,6 @@ pod 'JPAspect'
 * 如果在使用 JPAspect 时遇到问题，请发起**`issue`**或联系[本人](mailto:scauzouzhiyong@163.com)
 * QQ 交流群：
 
-![](https://github.com/zhiyongzou/JPAspect/imgs/qq_group.png)
+![](https://github.com/zhiyongzou/JPAspect/blob/master/imgs/qq_group.png)
 
 
