@@ -435,8 +435,10 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
     invocation.target = target;
     invocation.selector = selector;
     
-    for (JPAspectArgument *argument in arguments) {
-        [self setArgumentValue:argument invocation:invocation];
+    if (arguments) {
+        for (JPAspectArgument *argument in arguments) {
+            [self setArgumentValue:argument invocation:invocation];
+        }
     }
     
     [invocation invoke];
@@ -1174,45 +1176,39 @@ static NSUInteger const JPAspectMethodDefaultArgumentsCount = 2;
                 break;
             }
         } else {
-            NSMutableArray<JPAspectArgument *> *arguments = [[message.argumentCache objectForKey:component] mutableCopy];
-            if (arguments.count == 0) {
-                NSArray<NSDictionary *> *cureentSelArguments = [message.arguments objectForKey:component];
-                if (cureentSelArguments.count > 0) {
-                    arguments = [[NSMutableArray alloc] initWithCapacity:cureentSelArguments.count];
-                    
-                    [cureentSelArguments enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull parameter, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableArray<JPAspectArgument *> *arguments = nil;
+            NSArray<NSDictionary *> *cureentSelArguments = [message.arguments objectForKey:component];
+            if (cureentSelArguments && cureentSelArguments.count > 0) {
+                arguments = [[NSMutableArray alloc] initWithCapacity:cureentSelArguments.count];
+                
+                [cureentSelArguments enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull parameter, NSUInteger idx, BOOL * _Nonnull stop) {
 #ifdef DEBUG
-                        if (![parameter[@"value"] isKindOfClass:[NSString class]]) {
-                            NSAssert(NO, @"[JPAspect] Value must be NSString");
-                        }
-#endif
-                        JPAspectArgument *argument = nil;
-                        JPAspectInstance *localInstance = [localVariables objectForKey:parameter[@"value"]];
-                        NSUInteger argumentType = [parameter[@"type"] unsignedIntegerValue];
-                        NSUInteger argumentIndex = [parameter[@"index"] unsignedIntegerValue];
-                        
-                        if (localInstance) {
-                            argument = [[JPAspectArgument alloc] init];
-                            argument.value = localInstance.value;
-                            argument.index = argumentIndex;
-                            argument.type = argumentType;
-                        } else if ([aspectModel.argumentNames containsObject:parameter[@"value"]]) {
-                            argument = [JPAspect getArgumentWithInvocation:aspectInfo.originalInvocation
-                                                                   atIndex:[aspectModel.argumentNames indexOfObject:parameter[@"value"]]];
-                            argument.index = argumentIndex;
-                        } else {
-                            argument = [[JPAspectArgument alloc] init];
-                            argument.index = argumentIndex;
-                            argument.type = argumentType;
-                            argument.value = [JPAspect aspectInstanceValueWithType:argumentType contentString:parameter[@"value"] localVariables:localVariables aspectInfo:aspectInfo];
-                        }
-                        [arguments addObject:argument];
-                    }];
-                    
-                    if ([message.argumentCache objectForKey:component] == nil) {
-                        [message.argumentCache setObject:arguments forKey:component];
+                    if (![parameter[@"value"] isKindOfClass:[NSString class]]) {
+                        NSAssert(NO, @"[JPAspect] Value must be NSString");
                     }
-                }
+#endif
+                    JPAspectArgument *argument = nil;
+                    JPAspectInstance *localInstance = [localVariables objectForKey:parameter[@"value"]];
+                    NSUInteger argumentType = [parameter[@"type"] unsignedIntegerValue];
+                    NSUInteger argumentIndex = [parameter[@"index"] unsignedIntegerValue];
+                    
+                    if (localInstance) {
+                        argument = [[JPAspectArgument alloc] init];
+                        argument.value = localInstance.value;
+                        argument.index = argumentIndex;
+                        argument.type = argumentType;
+                    } else if ([aspectModel.argumentNames containsObject:parameter[@"value"]]) {
+                        argument = [JPAspect getArgumentWithInvocation:aspectInfo.originalInvocation
+                                                               atIndex:[aspectModel.argumentNames indexOfObject:parameter[@"value"]]];
+                        argument.index = argumentIndex;
+                    } else {
+                        argument = [[JPAspectArgument alloc] init];
+                        argument.index = argumentIndex;
+                        argument.type = argumentType;
+                        argument.value = [JPAspect aspectInstanceValueWithType:argumentType contentString:parameter[@"value"] localVariables:localVariables aspectInfo:aspectInfo];
+                    }
+                    [arguments addObject:argument];
+                }];
             }
             
             isClassMethod = object_isClass(currentTarget) ? YES : NO;
